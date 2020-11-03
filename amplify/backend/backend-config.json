@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "rotary1b1c57aa": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
