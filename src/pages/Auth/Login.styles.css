@@ -1,0 +1,15 @@
+ion-icon.logo {
+  font-size: 128px;
+}
+
+ion-card-content {
+  display: flex;
+}
+
+ion-button {
+  --ion-margin: 10px;
+}
+
+ion-button.footer {
+  font-size: 10px;
+}

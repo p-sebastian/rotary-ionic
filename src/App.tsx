@@ -14,19 +14,20 @@ import '@ionic/react/css/display.css'
 
 /* Theme variables */
 import './theme/variables.css'
+import './theme/app.css'
 
-import {IonApp, IonRouterOutlet} from '@ionic/react'
+import {IonApp} from '@ionic/react'
 import {IonReactRouter} from '@ionic/react-router'
 import {AnyAction, Store} from '@reduxjs/toolkit'
 import Amplify from 'aws-amplify'
 import React, {useEffect, useState} from 'react'
 import {Provider} from 'react-redux'
-import {Redirect, Route} from 'react-router-dom'
 import {Persistor} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
 
 import amplifyConfig from './aws-exports.js'
-import Home from './pages/Home'
+import {useDark} from './hooks/useDark.hooks'
+import {AppRouter} from './pages/App.routes'
 import {rootEpic} from './redux/epics/root.epic'
 import {RootState, rootReducer} from './redux/slices/root.slice'
 import {createStoreWithMiddleware} from './redux/store'
@@ -45,10 +46,7 @@ const App: React.FC = () => {
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <IonReactRouter>
-              <IonRouterOutlet>
-                <Route path="/home" component={Home} exact={true} />
-                <Route exact path="/" render={() => <Redirect to="/home" />} />
-              </IonRouterOutlet>
+              <AppRouter />
             </IonReactRouter>
           </PersistGate>
         </Provider>
@@ -61,6 +59,7 @@ const useInit = () => {
   const [store, setStore] = useState<Store | null>(null)
   const [persistor, setPersistor] = useState<Persistor | null>(null)
   const [, setServices] = useState<TServices>()
+  useDark()
 
   useEffect(() => {
     Amplify.configure(amplifyConfig)
