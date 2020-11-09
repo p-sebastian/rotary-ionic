@@ -16,35 +16,15 @@ import {
   IonToolbar,
 } from '@ionic/react'
 import {informationCircleOutline} from 'ionicons/icons'
-import {DateTime} from 'luxon'
 import React from 'react'
 
-import {GenderEnum} from '../../redux/user.interface'
+import {InfoCard} from '../../components/InfoCard.component'
 import {AuthHooks} from './Auth.hooks'
 
 const RegisterPage: React.FC = () => {
   const {user, onChange, setValue, params, invalid, onSubmit} = useRegisterAuth()
   const {email, password} = params
-  const {
-    fullName,
-    club,
-    country,
-    province,
-    city,
-    memberId,
-    admissionDate,
-    registered,
-    gender,
-    birthday,
-    profession,
-    phone,
-    prefix,
-    suffix,
-    activity,
-    affiliate,
-  } = user
-  const {name, type} = club
-  const since = DateTime.fromISO(admissionDate).year
+  const {birthday, profession, phone, prefix, suffix, activity, affiliate} = user
 
   return (
     <IonPage>
@@ -54,42 +34,7 @@ const RegisterPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent color="light" fullscreen>
-        <IonCard>
-          <IonItem color="tertiary">
-            <IonLabel className="ion-text-wrap">{fullName}</IonLabel>
-          </IonItem>
-          <IonItem className="info">
-            <span className="title">ID</span>
-            <IonLabel slot="end" className="ion-text-wrap">
-              {memberId}
-            </IonLabel>
-          </IonItem>
-          <IonItem className="info">
-            <span className="title">Miembro desde</span>
-            <IonLabel slot="end">{since}</IonLabel>
-          </IonItem>
-          <IonItem className="info">
-            <span className="title">Genero</span>
-            <IonLabel slot="end">{gender === GenderEnum.Female ? 'Mujer' : 'Hombre'}</IonLabel>
-          </IonItem>
-          <IonItem className="info">
-            <span className="title">Registrado</span>
-            <IonLabel slot="end">{registered ? 'Si' : 'No'}</IonLabel>
-          </IonItem>
-          <IonItem className="info">
-            <span className="title">Ubicacion</span>
-            <IonLabel slot="end" className="ion-text-wrap">
-              {country}, {province}, {city}
-            </IonLabel>
-          </IonItem>
-          <IonItem color="tertiary" className="info">
-            <span>Club</span>
-            <IonLabel slot="end">{type}</IonLabel>
-          </IonItem>
-          <IonItem className="info">
-            <IonLabel className="ion-text-wrap">{name}</IonLabel>
-          </IonItem>
-        </IonCard>
+        <InfoCard user={user} />
 
         <IonCard>
           <IonList class="ion-no-padding">

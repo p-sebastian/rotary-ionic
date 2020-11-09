@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import {concatAll, filter, ignoreElements, map, switchMap, withLatestFrom} from 'rxjs/operators'
+import {concatAll, filter, ignoreElements, map, switchMap, tap, withLatestFrom} from 'rxjs/operators'
 
 import {TEpic} from '../../type/TEpic'
 import {onError} from '../../utils/onError.util'
@@ -8,6 +8,14 @@ import {userActions} from '../slices/user.slice'
 import {TUser} from '../user.interface'
 
 const e: TEpic[] = []
+e[e.length] = (action$, state$, {api}) =>
+  action$.pipe(
+    filter(authActions.appLaunched.match),
+    withLatestFrom(state$),
+    tap(([, {auth}]) => (api.token = auth.token)),
+    ignoreElements(),
+    onError(state$),
+  )
 
 e[e.length] = (action$, state$, {amplify, api}) =>
   action$.pipe(
@@ -52,8 +60,14 @@ e[e.length] = (action$, state$, {amplify, api}) =>
     onError(state$),
   )
 
-e[e.length] = (action$, state$, {amplify}) =>
-  action$.pipe(filter(authActions.logout.match), switchMap(amplify.logout), ignoreElements(), onError(state$))
+e[e.length] = (action$, state$, {amplify, api}) =>
+  action$.pipe(
+    filter(authActions.logout.match),
+    switchMap(amplify.logout),
+    tap(() => (api.token = null)),
+    ignoreElements(),
+    onError(state$),
+  )
 
 e[e.length] = (action$, state$, {api}) =>
   action$.pipe(

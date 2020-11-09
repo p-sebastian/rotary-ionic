@@ -39,7 +39,9 @@ const authSlice = createSlice({
     },
     logout: state => {
       state.status = AuthStateEnum.Logoff
+      state.token = ''
     },
+    appLaunched: () => {},
   },
 })
 
