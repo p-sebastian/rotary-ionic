@@ -2,6 +2,7 @@ import {useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 
 import {authActions} from '../redux/slices/auth.slice'
+import {userActions} from '../redux/slices/user.slice'
 
 /*
  * ** Usage **
@@ -18,3 +19,4 @@ function makeActionHook<T>(actions: T) {
 }
 
 export const useAuthAction = makeActionHook(authActions)
+export const useUserAction = makeActionHook(userActions)

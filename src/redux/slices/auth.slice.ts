@@ -1,40 +1,41 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 
-import {AuthSignInPayload} from '../auth.interface'
+import {AuthConfirmPayload, AuthSignInPayload, AuthSignUpPayload} from '../auth.interface'
 
 export enum AuthStateEnum {
   None = 'none',
   SignedIn = 'signed_in',
+  SignIn = 'sign_in',
   Registered = 'registered',
+  Code = 'code',
+  NeedsAccount = 'needs_account',
   Logoff = 'logoff',
 }
 
 type State = {
   status: AuthStateEnum
-  sub: string
-  email: string
+  token: string
 }
 
 const INITIAL_STATE: State = {
   status: AuthStateEnum.None,
-  sub: '',
-  email: '',
+  token: '',
 }
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: INITIAL_STATE,
   reducers: {
-    signUp: (_, {}: PayloadAction<AuthSignInPayload>) => {},
-    registered: state => {
-      state.status = AuthStateEnum.Registered
+    signUp: (_, {}: PayloadAction<AuthSignUpPayload>) => {},
+    verify: (_, {}: PayloadAction<string>) => {},
+    confirm: (_, {}: PayloadAction<AuthConfirmPayload>) => {},
+    changeStatus: (state, {payload}: PayloadAction<AuthStateEnum>) => {
+      state.status = payload
     },
-    login: (state, {payload}: PayloadAction<AuthSignInPayload>) => {
-      state.email = payload.email
-    },
+    login: (_, {}: PayloadAction<AuthSignInPayload>) => {},
     signedIn: (state, {payload}: PayloadAction<string>) => {
       state.status = AuthStateEnum.SignedIn
-      state.sub = payload
+      state.token = payload
     },
     logout: state => {
       state.status = AuthStateEnum.Logoff

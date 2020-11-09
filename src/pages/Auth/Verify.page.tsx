@@ -9,6 +9,7 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonContent,
+  IonFooter,
   IonHeader,
   IonIcon,
   IonInput,
@@ -19,13 +20,13 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react'
+import {informationCircleOutline} from 'ionicons/icons'
 import React from 'react'
 
 import {AuthHooks} from './Auth.hooks'
 
-const LoginPage: React.FC = () => {
-  const {params, setValue, onPress} = useLoginAuth()
-  const {email, password} = params
+const VerifyPage: React.FC = () => {
+  const {identification, onChange, toLogin, onPress} = useVerify()
 
   return (
     <IonPage>
@@ -48,28 +49,34 @@ const LoginPage: React.FC = () => {
         </IonCard>
 
         <IonCard>
+          <IonItem>
+            <IonIcon icon={informationCircleOutline} slot="start" size="large" color="primary" />
+            <IonLabel className="ion-text-wrap" color="tertiary">
+              Ingrese su cedula. Esto verificara si ya ha sido ingresado al sistema
+            </IonLabel>
+          </IonItem>
           <IonList class="ion-no-padding">
             <IonItem>
               <IonLabel color="tertiary" position="floating">
-                Email
+                Cedula
               </IonLabel>
-              <IonInput type="email" onIonChange={setValue('email')} value={email} />
-            </IonItem>
-            <IonItem>
-              <IonLabel color="tertiary" position="floating">
-                Contraseña
-              </IonLabel>
-              <IonInput type="password" onIonChange={setValue('password')} value={password} />
+              <IonInput type="tel" onIonChange={onChange} value={identification} />
             </IonItem>
           </IonList>
         </IonCard>
         <IonButton class="ion-margin" color="secondary" expand="full" onClick={onPress}>
-          Iniciar Sesion
+          Verificar
         </IonButton>
       </IonContent>
+
+      <IonFooter class="ion-no-border">
+        <IonButton color="tertiary" class="footer ion-no-margin" expand="full" onClick={toLogin}>
+          Ya tienes una cuenta? presiona aqui
+        </IonButton>
+      </IonFooter>
     </IonPage>
   )
 }
 
-const {useLoginAuth} = AuthHooks
-export default LoginPage
+const {useVerify} = AuthHooks
+export default VerifyPage

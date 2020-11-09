@@ -15,7 +15,7 @@ export const PrivateRoute: React.FC<RouteProps> = ({component: Component, ...res
         authenticated && Component ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{pathname: AuthRouteNames.Register, state: {from: props.location}}} />
+          <Redirect to={{pathname: AuthRouteNames.Verify, state: {from: props.location}}} />
         )
       }
     />

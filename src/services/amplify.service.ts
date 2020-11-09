@@ -1,6 +1,6 @@
 import {Auth} from 'aws-amplify'
 
-import {AuthSignInPayload} from '../redux/auth.interface'
+import {AuthSignInPayload, AuthSignUpPayload} from '../redux/auth.interface'
 import {TUser} from '../redux/user.interface'
 import {ErrorCode} from '../utils/error.util'
 
@@ -9,7 +9,7 @@ export class AmplifyService {
   private _attributes: TUser | null = null
   private constructor() {}
 
-  private async userAttributes(reload = false): Promise<TUser | null> {
+  private async userAttributes(reload = false): Promise<{sub: string} | null> {
     if (this._attributes && !reload) {
       return this._attributes
     }
@@ -51,7 +51,7 @@ export class AmplifyService {
     return AmplifyService.instance
   }
 
-  currentAuthenticatedUser = async (): Promise<TUser | null> => {
+  currentAuthenticatedUser = async (): Promise<{sub: string} | null> => {
     const getCurrentUserInfo = Auth.currentAuthenticatedUser.bind(Auth)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {attributes} = await this.wrapper(getCurrentUserInfo, ErrorCode.AuthCurrentAuthenticatedUser)
@@ -66,7 +66,7 @@ export class AmplifyService {
     }
   }
 
-  signUp = async ({password, email}: AuthSignInPayload): Promise<string> => {
+  signUp = async ({password, email}: AuthSignUpPayload): Promise<string> => {
     const bound = Auth.signUp.bind(Auth, {
       username: email.toLocaleLowerCase(),
       password, // Do not lowercase the password
@@ -105,5 +105,35 @@ export class AmplifyService {
       return Promise.reject(e)
     }
     return
+  }
+
+  confirmSignUp = async (code: string, email: string) => {
+    try {
+      const bound = Auth.confirmSignUp.bind(Auth, email.toLocaleLowerCase(), code)
+      await this.wrapper(bound, ErrorCode.AuthConfirmSignUp)
+    } catch (e) {
+      if (
+        e.error_code === 'NotAuthorizedException' &&
+        e.message == 'User cannot be confirmed. Current status is CONFIRMED' &&
+        e.operation_code === ErrorCode.AuthConfirmSignUp
+      ) {
+        // great, we are confirmed ... continue
+      } else if (
+        e.error_code === 'InvalidParameterException' &&
+        e.message == 'Custom auth lambda trigger is not configured for the user pool.' &&
+        e.operation_code === ErrorCode.AuthConfirmSignUp
+      ) {
+        // meh .. this is a bug in cognito.  ignore it.
+      } else {
+        console.log(
+          'Reject: confirmSignUp failed',
+          e.error_code === 'NotAuthorizedException',
+          (e.message as string).indexOf('Current status is CONFIRMED') >= 0,
+          e.operation_code === ErrorCode.AuthConfirmSignUp,
+          e,
+        )
+        return Promise.reject(e)
+      }
+    }
   }
 }

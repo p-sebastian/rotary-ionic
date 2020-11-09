@@ -6,4 +6,5 @@ export enum ErrorCode {
   AuthUserAttributes = 304,
   AuthForgot = 305,
   AuthResendSignUp = 306,
+  AuthConfirmSignUp = 307,
 }

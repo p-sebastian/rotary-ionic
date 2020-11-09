@@ -1,0 +1,30 @@
+ion-card-content {
+  display: flex;
+}
+
+ion-button {
+  --ion-margin: 10px;
+}
+
+ion-button.footer {
+  font-size: 10px;
+}
+
+ion-item.info,
+ion-item.address {
+  --min-height: 30px;
+}
+
+ion-item.info ion-label {
+  margin-top: 1px;
+  margin-bottom: 0;
+  text-transform: capitalize;
+}
+
+ion-item.info span.title {
+  color: var(--ion-color-primary, #ffffff);
+}
+
+ion-item[color='tertiary'] {
+  font-weight: bold;
+}
