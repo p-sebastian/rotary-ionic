@@ -50,7 +50,7 @@ export class ApiService {
       axios.post.bind(null, `${this.url}/user/login`, {sub}, this.options) as any,
       401,
     )
-  // getLocations = () => wrapper<AxiosResponse<TLocation[]>>(axios.get.bind(null, `${this.url}/location`) as any, 400)
+  getMembers = () => wrapper<AxiosResponse<TUser[]>>(axios.get.bind(null, `${this.url}/user`, this.options) as any, 400)
   // getPoints = () => wrapper<AxiosResponse<TPoint[]>>(axios.get.bind(null, `${this.url}/point`) as any, 400)
   // getRestaurant = (id: string) =>
   //   wrapper<AxiosResponse<TRestaurant>>(axios.get.bind(null, `${this.url}/restaurant/${id}`) as any, 400)

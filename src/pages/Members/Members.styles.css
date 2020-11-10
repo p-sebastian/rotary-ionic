@@ -1,0 +1,7 @@
+ion-item.rotarac {
+  border-left: solid var(--ion-color-secondary, #ffffff) 5px;
+}
+
+ion-item.rotary {
+  border-left: solid var(--ion-color-primary, #ffffff) 5px;
+}

@@ -7,7 +7,7 @@ import {AuthSignUpPayload} from '../../redux/auth.interface'
 import {AuthStateEnum} from '../../redux/slices/auth.slice'
 import {TUser} from '../../redux/user.interface'
 import {useASelector} from '../../utils/recipies.util'
-import {AppRouteNames, AuthRouteNames} from '../Route.names'
+import {AuthRouteNames, MainRouteNames} from '../Route.names'
 
 const useLoginAuth = () => {
   const history = useHistory()
@@ -21,7 +21,7 @@ const useLoginAuth = () => {
 
   useEffect(() => {
     if (status === AuthStateEnum.SignedIn) {
-      history.replace(AppRouteNames.Dashboard)
+      history.replace(MainRouteNames.Dashboard)
     }
   }, [status])
   return {...props, onPress}

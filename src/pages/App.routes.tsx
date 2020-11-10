@@ -15,7 +15,7 @@ import {
   IonToolbar,
 } from '@ionic/react'
 import {checkboxOutline, documentTextOutline, logOutOutline, peopleCircleOutline} from 'ionicons/icons'
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {Redirect, Route, Switch, useHistory} from 'react-router'
 
 import {PrivateRoute} from '../components/PrivateRoute.component'
@@ -23,11 +23,12 @@ import {useAuthAction} from '../hooks/useAction.hook'
 import {AuthStateEnum} from '../redux/slices/auth.slice'
 import {useASelector} from '../utils/recipies.util'
 import {AuthRouter} from './Auth/Auth.routes'
-import DashboardPage from './Dashboard/Dashboard.page'
-import {AppRouteNames, AuthRouteNames} from './Route.names'
+import {MainRouter} from './Main.routes'
+import {AppRouteNames, AuthRouteNames, MainRouteNames} from './Route.names'
 
 export const AppRouter: React.FC = () => {
-  const {onLogout} = useInit()
+  const {onLogout, toMembers} = useInit()
+
   return (
     <>
       <IonMenu side="start" menuId="first" contentId="rotary-app" swipeGesture={false}>
@@ -38,7 +39,7 @@ export const AppRouter: React.FC = () => {
         </IonHeader>
         <IonContent>
           <IonList>
-            <IonItem button detail>
+            <IonItem button detail onClick={toMembers}>
               <IonIcon icon={peopleCircleOutline} slot="start" color="primary" />
               <IonLabel>Socios</IonLabel>
             </IonItem>
@@ -65,9 +66,9 @@ export const AppRouter: React.FC = () => {
       </IonMenu>
       <IonRouterOutlet id="rotary-app">
         <Switch>
-          <PrivateRoute path={AppRouteNames.Dashboard} component={DashboardPage} />
+          <PrivateRoute path={AppRouteNames.Main} component={MainRouter} />
           <Route path={AppRouteNames.Auth} component={AuthRouter} />
-          <Route exact path="/" render={() => <Redirect to={AppRouteNames.Dashboard} />} />
+          <Route exact path="/" render={() => <Redirect to={MainRouteNames.Dashboard} />} />
           <Route path="*" render={() => <Redirect to={AuthRouteNames.Login} />} />
         </Switch>
       </IonRouterOutlet>
@@ -84,16 +85,22 @@ const useInit = () => {
   useEffect(() => {
     launched()
   }, [])
+
   useEffect(() => {
     if (status === AuthStateEnum.Logoff) {
       history.replace(AuthRouteNames.Login)
     }
   }, [status])
 
-  const onLogout = () => {
+  const onLogout = useCallback(() => {
     logout()
     menuController.close('first')
-  }
+  }, [])
 
-  return {onLogout}
+  const toMembers = useCallback(() => {
+    history.push(MainRouteNames.Members)
+    menuController.close('first')
+  }, [])
+
+  return {onLogout, toMembers}
 }

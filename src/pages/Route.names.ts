@@ -1,5 +1,5 @@
 export enum AppRouteNames {
-  Dashboard = '/dashboard',
+  Main = '/main',
   Auth = '/auth',
 }
 
@@ -9,4 +9,10 @@ export enum AuthRouteNames {
   Verify = '/auth/verify',
   Code = '/auth/code',
   Forgot = '/auth/forgot',
+}
+
+export enum MainRouteNames {
+  Dashboard = '/main/dashboard',
+  Members = '/main/members',
+  MemberInfo = '/main/info',
 }
