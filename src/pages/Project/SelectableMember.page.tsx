@@ -13,15 +13,16 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react'
-import {refreshOutline} from 'ionicons/icons'
+import {checkmarkDoneOutline, refreshOutline} from 'ionicons/icons'
 import React from 'react'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import {FixedSizeList as List, ListChildComponentProps, ListItemKeySelector} from 'react-window'
 
+import Skeleton from '../../components/Skeleton.component'
 import {SelectableMemberHooks, TItemData} from './SelectableMember.hooks'
 
 const SelectableMemberPage: React.FC = () => {
-  const {text, onSearch, members, keys, clearSelected} = useSelectableMember()
+  const {text, onSearch, members, keys, refresh, onRightClick} = useSelectableMember()
 
   return (
     <IonPage>
@@ -32,14 +33,15 @@ const SelectableMemberPage: React.FC = () => {
           </IonButtons>
           <IonTitle>Socios</IonTitle>
           <IonButtons slot="end">
-            <IonButton color="light" onClick={clearSelected}>
-              <IonIcon slot="icon-only" icon={refreshOutline} />
+            <IonButton color="light" onClick={onRightClick}>
+              <IonIcon slot="icon-only" icon={refresh ? refreshOutline : checkmarkDoneOutline} />
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonSearchbar placeholder="Busqueda" value={text} onIonChange={onSearch} />
+        {keys.length ? null : <Skeleton />}
         <AutoSizer>
           {({height, width}) => (
             <List

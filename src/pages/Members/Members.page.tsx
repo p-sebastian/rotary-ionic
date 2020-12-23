@@ -8,6 +8,7 @@ import {
   IonHeader,
   IonIcon,
   IonItem,
+  IonItemDivider,
   IonLabel,
   IonPage,
   IonSearchbar,
@@ -45,7 +46,7 @@ const MembersPage: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         {didFilter ? null : <IonSearchbar placeholder="Busqueda" value={text} onIonChange={onSearch} />}
-        {keys.length ? null : <Skeleton />}
+        {keys.length ? <IonItemDivider>Total ({keys.length})</IonItemDivider> : <Skeleton />}
         <AutoSizer>
           {({height, width}) => (
             <List

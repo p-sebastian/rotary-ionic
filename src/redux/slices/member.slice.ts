@@ -38,6 +38,11 @@ export const memberSlice = createSlice({
     clearSelected: state => {
       state.selected = {}
     },
+    selectAll: state => {
+      const obj: typeof state.selected = {}
+      state.filtered.forEach(id => (obj[id] = true))
+      state.selected = obj
+    },
     select: (state, {payload}: PayloadAction<{key: string; enabled: boolean}>) => {
       const {enabled, key} = payload
       state.selected = {...state.selected, [key]: enabled}

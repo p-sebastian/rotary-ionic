@@ -1,23 +1,24 @@
 import {InputChangeEventDetail} from '@ionic/core'
 import Fuse from 'fuse.js'
 import {useCallback, useEffect, useMemo, useState} from 'react'
-import {useHistory, useLocation} from 'react-router'
+import {useLocation} from 'react-router'
 
 import {useMemberAction} from '../../hooks/useAction.hook'
 import {TUser} from '../../redux/user.interface'
 import {useASelector} from '../../utils/recipies.util'
-import {MainRouteNames} from '../Route.names'
 
 const useSelectableMember = () => {
   const filterBy = useMemberAction('fiterBy')
   const action = useMemberAction('get')
   const clear = useMemberAction('clearFilter')
   const clearSelected = useMemberAction('clearSelected')
+  const selectAll = useMemberAction('selectAll')
   const {state = {clubId: ''}} = useLocation<{clubId: string}>()
   const [text, setText] = useState('')
   const keys = useASelector(state => state.member.filtered)
   const members = useASelector(state => state.member.members)
   const [filtered, setFiltered] = useState(keys ?? [])
+  const selected = useASelector(state => state.member.selected)
 
   const fuse = useMemo(
     () => new Fuse(Object.values(members), {keys: [{name: 'fullName', weight: 2}, 'club.code', 'club.type']}),
@@ -43,8 +44,12 @@ const useSelectableMember = () => {
   }, [])
 
   const onSearch = (e: CustomEvent<InputChangeEventDetail>) => setText(e.detail.value ?? '')
+  const refresh = !!Object.keys(selected).filter(x => selected[x]).length
+  const onRightClick = useCallback(() => {
+    refresh ? clearSelected() : selectAll()
+  }, [refresh])
 
-  return {keys: filtered, members, text, onSearch, clearSelected}
+  return {keys: filtered, members, text, onSearch, clearSelected, refresh, onRightClick}
 }
 
 const useMemberItem = (index: number, data: TItemData) => {

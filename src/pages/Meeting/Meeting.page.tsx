@@ -3,7 +3,7 @@ import React from 'react'
 
 import {MainRouteNames} from '../Route.names'
 
-const PublicationPage: React.FC = () => {
+const MeetingPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -11,7 +11,7 @@ const PublicationPage: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref={MainRouteNames.Dashboard} />
           </IonButtons>
-          <IonTitle>Publicaciones</IonTitle>
+          <IonTitle>Reunion</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen></IonContent>
@@ -19,4 +19,4 @@ const PublicationPage: React.FC = () => {
   )
 }
 
-export default PublicationPage
+export default MeetingPage
