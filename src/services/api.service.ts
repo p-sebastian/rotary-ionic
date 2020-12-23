@@ -8,7 +8,7 @@ import {wrapper} from '../utils/recipies.util'
 
 export class ApiService {
   private static instance: ApiService
-  private static URL = 'https://convini.ngrok.io'
+  private static URL = 'https://rotary.convini.ec'
   private static VERSION = 'api/v1'
   private static PORT = 443
   private _token: string | null = null
