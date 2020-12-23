@@ -3,6 +3,7 @@ export type TClub = {
   type: ClubTypesEnum
   name: string
   code: string
+  foundedOn?: string
 }
 
 export enum ClubTypesEnum {

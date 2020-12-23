@@ -14,5 +14,11 @@ export enum AuthRouteNames {
 export enum MainRouteNames {
   Dashboard = '/main/dashboard',
   Members = '/main/members',
+  Meetings = '/main/meetings',
+  Projects = '/main/projects',
+  ViewProject = '/main/view-project',
+  ProjectCreate = '/main/projects-create',
+  SelectableMember = '/main/selectable-member',
+  Publications = '/main/publications',
   MemberInfo = '/main/info',
 }

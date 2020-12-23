@@ -1,0 +1,20 @@
+#rc-skeleton-item {
+  --min-height: 40px;
+}
+
+#rc-skeleton-item .rc-first {
+  width: 30px;
+  height: 30px;
+}
+
+#rc-skeleton-item .rc-second {
+  width: 50%;
+}
+
+#rc-skeleton-item .rc-third {
+  width: 80%;
+}
+
+#rc-skeleton-item .rc-fourth {
+  width: 60%;
+}

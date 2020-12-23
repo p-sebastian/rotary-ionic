@@ -15,6 +15,8 @@ const useLoginAuth = () => {
   const props = useParams()
   const status = useASelector(state => state.auth.status)
 
+  const toVerify = useCallback(() => history.replace(AuthRouteNames.Verify), [])
+
   const onPress = () => {
     login(props.params)
   }
@@ -24,7 +26,7 @@ const useLoginAuth = () => {
       history.replace(MainRouteNames.Dashboard)
     }
   }, [status])
-  return {...props, onPress}
+  return {...props, onPress, toVerify}
 }
 
 const useRegisterAuth = () => {

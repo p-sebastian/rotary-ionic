@@ -12,7 +12,7 @@ e[e.length] = (action$, state$, {api}) =>
     filter(memberActions.get.match),
     mergeMap(api.getMembers),
     map(({data}) => {
-      const state: TMembersState = {
+      const state: Pick<TMembersState, 'keys' | 'members'> = {
         keys: [],
         members: {},
       }
@@ -23,6 +23,15 @@ e[e.length] = (action$, state$, {api}) =>
 
       return memberActions.set(state)
     }),
+    onError(state$),
+  )
+
+e[e.length] = (action$, state$, {api}) =>
+  action$.pipe(
+    filter(memberActions.fiterBy.match),
+    map(({payload}) => payload),
+    mergeMap(api.filterMembers),
+    map(({data}) => memberActions.filtered(data)),
     onError(state$),
   )
 

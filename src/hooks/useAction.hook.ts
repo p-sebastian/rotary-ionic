@@ -2,7 +2,9 @@ import {useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 
 import {authActions} from '../redux/slices/auth.slice'
+import {clubActions} from '../redux/slices/club.slice'
 import {memberActions} from '../redux/slices/member.slice'
+import {projectActions} from '../redux/slices/project.slice'
 import {userActions} from '../redux/slices/user.slice'
 
 /*
@@ -22,3 +24,5 @@ function makeActionHook<T>(actions: T) {
 export const useAuthAction = makeActionHook(authActions)
 export const useUserAction = makeActionHook(userActions)
 export const useMemberAction = makeActionHook(memberActions)
+export const useClubAction = makeActionHook(clubActions)
+export const useProjectAction = makeActionHook(projectActions)

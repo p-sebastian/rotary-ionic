@@ -1,0 +1,20 @@
+#rc-filter-modal ion-list.club {
+  /* item-height(40) * 3 + borderHeight(1) * 6 */
+  --max-height: 126px;
+  --height: 126px;
+  max-height: 126px;
+  overflow-y: auto;
+}
+
+#rc-filter-modal ion-list.club ion-item {
+  --min-height: 40px;
+}
+
+#rc-filter-modal ion-note {
+  text-transform: capitalize;
+  font-size: 16px;
+}
+
+#rc-filter-modal ion-button.rc-btn-bottom {
+  margin: 10px;
+}

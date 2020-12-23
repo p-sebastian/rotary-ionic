@@ -9,6 +9,7 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonContent,
+  IonFooter,
   IonHeader,
   IonIcon,
   IonInput,
@@ -24,7 +25,7 @@ import React from 'react'
 import {AuthHooks} from './Auth.hooks'
 
 const LoginPage: React.FC = () => {
-  const {params, setValue, onPress} = useLoginAuth()
+  const {params, setValue, onPress, toVerify} = useLoginAuth()
   const {email, password} = params
 
   return (
@@ -67,6 +68,12 @@ const LoginPage: React.FC = () => {
           Iniciar Sesion
         </IonButton>
       </IonContent>
+
+      <IonFooter class="ion-no-border">
+        <IonButton color="tertiary" class="footer ion-no-margin" expand="full" onClick={toVerify}>
+          No tienes una cuenta? presiona aqui
+        </IonButton>
+      </IonFooter>
     </IonPage>
   )
 }

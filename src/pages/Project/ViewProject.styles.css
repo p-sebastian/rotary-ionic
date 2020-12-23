@@ -1,0 +1,18 @@
+#rc-view-project-page ion-item.rotarac {
+  border-left: solid var(--ion-color-secondary, #ffffff) 5px;
+}
+
+#rc-view-project-page ion-item.rotary {
+  border-left: solid var(--ion-color-primary, #ffffff) 5px;
+}
+
+#rc-view-project-page ion-list.member {
+  --max-height: 126px;
+  --height: 126px;
+  max-height: 126px;
+  overflow-y: auto;
+}
+
+#rc-view-project-page ion-list.member ion-item {
+  --min-height: 40px;
+}

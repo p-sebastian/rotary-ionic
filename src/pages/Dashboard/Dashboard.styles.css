@@ -1,0 +1,28 @@
+.rc-dashboard-page ion-grid ion-col {
+  width: calc(50vw - 40px);
+  height: calc(50vw - 40px);
+}
+
+.rc-dashboard-page ion-grid ion-col ion-item {
+  width: 100%;
+  height: 100%;
+  --border-radius: 10px !important;
+}
+
+.rc-dashboard-page ion-grid ion-col ion-button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.rc-dashboard-page ion-grid ion-col ion-button div.vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rc-dashboard-page ion-grid ion-col ion-button div.vertical ion-icon {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}

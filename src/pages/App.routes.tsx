@@ -14,20 +14,21 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react'
-import {checkboxOutline, documentTextOutline, logOutOutline, peopleCircleOutline} from 'ionicons/icons'
+import {logOutOutline} from 'ionicons/icons'
 import React, {useCallback, useEffect} from 'react'
 import {Redirect, Route, Switch, useHistory} from 'react-router'
 
 import {PrivateRoute} from '../components/PrivateRoute.component'
 import {useAuthAction} from '../hooks/useAction.hook'
 import {AuthStateEnum} from '../redux/slices/auth.slice'
+import {BUTTONS, ButtonEnum} from '../utils/constants.util'
 import {useASelector} from '../utils/recipies.util'
 import {AuthRouter} from './Auth/Auth.routes'
 import {MainRouter} from './Main.routes'
 import {AppRouteNames, AuthRouteNames, MainRouteNames} from './Route.names'
 
 export const AppRouter: React.FC = () => {
-  const {onLogout, toMembers} = useInit()
+  const {onLogout, navigate} = useInit()
 
   return (
     <>
@@ -39,18 +40,12 @@ export const AppRouter: React.FC = () => {
         </IonHeader>
         <IonContent>
           <IonList>
-            <IonItem button detail onClick={toMembers}>
-              <IonIcon icon={peopleCircleOutline} slot="start" color="primary" />
-              <IonLabel>Socios</IonLabel>
-            </IonItem>
-            <IonItem button detail>
-              <IonIcon icon={checkboxOutline} slot="start" color="primary" />
-              <IonLabel>Meetings</IonLabel>
-            </IonItem>
-            <IonItem button detail>
-              <IonIcon icon={documentTextOutline} slot="start" color="primary" />
-              <IonLabel>Proyectos</IonLabel>
-            </IonItem>
+            {BUTTONS.map(({icon, key, label}) => (
+              <IonItem button detail key={key} onClick={navigate(key)}>
+                <IonIcon icon={icon} slot="start" color="primary" />
+                <IonLabel>{label}</IonLabel>
+              </IonItem>
+            ))}
           </IonList>
         </IonContent>
         <IonFooter>
@@ -92,15 +87,31 @@ const useInit = () => {
     }
   }, [status])
 
+  const navigate = useCallback(
+    (where: ButtonEnum) => () => {
+      switch (where) {
+        case ButtonEnum.Socios:
+          history.push(MainRouteNames.Members)
+          break
+        case ButtonEnum.Meetings:
+          history.push(MainRouteNames.Meetings)
+          break
+        case ButtonEnum.Projects:
+          history.push(MainRouteNames.Projects)
+          break
+        case ButtonEnum.Publications:
+          history.push(MainRouteNames.Publications)
+          break
+      }
+      menuController.close('first')
+    },
+    [],
+  )
+
   const onLogout = useCallback(() => {
     logout()
     menuController.close('first')
   }, [])
 
-  const toMembers = useCallback(() => {
-    history.push(MainRouteNames.Members)
-    menuController.close('first')
-  }, [])
-
-  return {onLogout, toMembers}
+  return {onLogout, navigate}
 }

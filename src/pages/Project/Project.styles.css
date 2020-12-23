@@ -1,0 +1,8 @@
+#rc-project-page ion-item.rc-project-item ion-note[slot='start'] {
+  margin-right: 0;
+  font-weight: bold;
+}
+
+#rc-project-page ion-item.rc-project-item ion-label {
+  text-transform: capitalize;
+}
