@@ -1,0 +1,18 @@
+#rc-meeting-view-page ion-item.rotarac {
+  border-left: solid var(--ion-color-secondary, #ffffff) 5px;
+}
+
+#rc-meeting-view-page ion-item.rotary {
+  border-left: solid var(--ion-color-primary, #ffffff) 5px;
+}
+
+#rc-meeting-view-page ion-list.member {
+  --max-height: 126px;
+  --height: 126px;
+  max-height: 126px;
+  overflow-y: auto;
+}
+
+#rc-meeting-view-page ion-list.member ion-item {
+  --min-height: 40px;
+}

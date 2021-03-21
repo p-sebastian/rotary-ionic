@@ -15,6 +15,8 @@ export enum MainRouteNames {
   Dashboard = '/main/dashboard',
   Members = '/main/members',
   Meetings = '/main/meetings',
+  MeetingsCreate = '/main/meetings-create',
+  MeetingsView = '/main/meetings-view',
   Projects = '/main/projects',
   ViewProject = '/main/view-project',
   ProjectCreate = '/main/projects-create',

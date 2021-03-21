@@ -19,6 +19,8 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 import {FixedSizeList as List, ListChildComponentProps, ListItemKeySelector} from 'react-window'
 
 import Skeleton from '../../components/Skeleton.component'
+import {TRole} from '../../redux/role.interface'
+import {checkRole} from '../../utils/helpers.util'
 import {SelectableMemberHooks, TItemData} from './SelectableMember.hooks'
 
 const SelectableMemberPage: React.FC = () => {
@@ -64,11 +66,13 @@ const keyExtract: ListItemKeySelector = (i, data: TItemData) => data.members[dat
 const Row: React.FC<ListChildComponentProps> = React.memo(props => {
   const {index, style} = props
   const {member, onSelect, selected} = useMemberItem(index, props.data)
-  const {fullName, club} = member
+  const {fullName, club, role} = member
   const {type} = club
+  const icon = checkRole(role as TRole)
 
   return (
     <IonItem button className={type} style={style} onClick={onSelect} detail={false}>
+      {icon ? <IonIcon icon={icon} slot="start" color="primary" /> : null}
       <IonLabel>{fullName}</IonLabel>
       {selected ? (
         <IonNote color="warning" slot="end">

@@ -45,6 +45,13 @@ const useProjectCreate = () => {
     history.goBack()
   }
 
+  useEffect(() => {
+    return () => {
+      clearSelected()
+      clear()
+    }
+  }, [])
+
   return {onChange, data, onSubmit, clubs, onMember, selected, remove, users, invalid}
 
   function validate(s: string[] = []) {

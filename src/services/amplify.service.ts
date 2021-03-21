@@ -114,13 +114,13 @@ export class AmplifyService {
     } catch (e) {
       if (
         e.error_code === 'NotAuthorizedException' &&
-        e.message == 'User cannot be confirmed. Current status is CONFIRMED' &&
+        e.message === 'User cannot be confirmed. Current status is CONFIRMED' &&
         e.operation_code === ErrorCode.AuthConfirmSignUp
       ) {
         // great, we are confirmed ... continue
       } else if (
         e.error_code === 'InvalidParameterException' &&
-        e.message == 'Custom auth lambda trigger is not configured for the user pool.' &&
+        e.message === 'Custom auth lambda trigger is not configured for the user pool.' &&
         e.operation_code === ErrorCode.AuthConfirmSignUp
       ) {
         // meh .. this is a bug in cognito.  ignore it.

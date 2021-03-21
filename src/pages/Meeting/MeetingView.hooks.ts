@@ -2,12 +2,12 @@ import {useLocation} from 'react-router'
 
 import {useASelector} from '../../utils/recipies.util'
 
-const useViewProject = () => {
+const useMeetingView = () => {
   const {state = {id: ''}} = useLocation<{id: string}>()
   const {id} = state
-  const project = useASelector(state => state.project.projects[id], [id])
+  const meeting = useASelector(state => state.meeting.meetings[id], [id])
 
-  return {project}
+  return {meeting}
 }
 
 const useMember = (id: string) => {
@@ -16,4 +16,4 @@ const useMember = (id: string) => {
   return {member}
 }
 
-export const ViewProjectHooks = {useViewProject, useMember}
+export const MeetingViewHooks = {useMeetingView, useMember}

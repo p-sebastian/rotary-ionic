@@ -1,4 +1,5 @@
 import {TClub} from './club.interface'
+import {TRole} from './role.interface'
 
 export type TUser = {
   _id: string
@@ -35,6 +36,7 @@ export type TUser = {
   country: string
   postalCode?: string
   postalStamp?: string
+  role?: string | TRole
 }
 
 export enum GenderEnum {

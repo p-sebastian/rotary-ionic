@@ -20,6 +20,7 @@ import React from 'react'
 
 import Skeleton from '../../components/Skeleton.component'
 import {TClub} from '../../redux/club.interface'
+import {parseDate} from '../../utils/helpers.util'
 import {MainRouteNames} from '../Route.names'
 import {ViewProjectHooks} from './ViewProject.hooks'
 
@@ -145,5 +146,5 @@ const Member: React.FC<{id: string; index: number}> = ({id, index}) => {
   )
 }
 
-const {useViewProject, useMember, parseDate} = ViewProjectHooks
+const {useViewProject, useMember} = ViewProjectHooks
 export default ViewProjectPage

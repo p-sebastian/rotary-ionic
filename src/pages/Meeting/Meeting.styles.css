@@ -1,0 +1,8 @@
+#rc-meeting-page ion-item.rc-meeting-item ion-note[slot='start'] {
+  margin-right: 0;
+  font-weight: bold;
+}
+
+#rc-meeting-page ion-item.rc-meeting-item ion-label {
+  text-transform: capitalize;
+}

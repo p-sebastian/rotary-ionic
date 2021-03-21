@@ -2,13 +2,14 @@ import axios, {AxiosResponse} from 'axios'
 
 import {TFilterSelected} from '../pages/Members/MemberFilter.hooks'
 import {TClub} from '../redux/club.interface'
+import {TMeeting, TMeetingCreate} from '../redux/meeting.interface'
 import {TProject} from '../redux/project.interface'
 import {TUser} from '../redux/user.interface'
 import {wrapper} from '../utils/recipies.util'
 
 export class ApiService {
   private static instance: ApiService
-  private static URL = 'https://rotary.convini.ec'
+  private static URL = 'https://convini.ngrok.io'
   private static VERSION = 'api/v1'
   private static PORT = 443
   private _token: string | null = null
@@ -64,6 +65,9 @@ export class ApiService {
   getProjects = () =>
     wrapper<AxiosResponse<TProject[]>>(axios.get.bind(null, `${this.url}/project`, this.options) as any, 400)
 
+  getMeetings = () =>
+    wrapper<AxiosResponse<TMeeting[]>>(axios.get.bind(null, `${this.url}/meeting`, this.options) as any, 400)
+
   createUser = (user: Partial<TUser>) =>
     wrapper<AxiosResponse<TUser>>(
       axios.put.bind(null, `${this.url}/user/register/${user.identification}`, user, this.options) as any,
@@ -72,4 +76,7 @@ export class ApiService {
 
   createProject = (project: TProject) =>
     wrapper<AxiosResponse<TProject>>(axios.put.bind(null, `${this.url}/project`, project, this.options) as any, 400)
+
+  createMeeting = (meeting: TMeetingCreate) =>
+    wrapper<AxiosResponse<TMeeting>>(axios.put.bind(null, `${this.url}/meeting`, meeting, this.options) as any, 400)
 }

@@ -4,6 +4,8 @@ import React from 'react'
 import {PrivateRoute} from '../components/PrivateRoute.component'
 import DashboardPage from './Dashboard/Dashboard.page'
 import MeetingPage from './Meeting/Meeting.page'
+import MeetingCreatePage from './Meeting/MeetingCreate.page'
+import MeetingViewPage from './Meeting/MeetingView.page'
 import MemberInfoPage from './Members/MemberInfo.page'
 import MembersPage from './Members/Members.page'
 import ProjectPage from './Project/Project.page'
@@ -25,6 +27,8 @@ export const MainRouter: React.FC = () => {
       <PrivateRoute path={MainRouteNames.ViewProject} component={ViewProjectPage} />
       <PrivateRoute path={MainRouteNames.Publications} component={PublicationPage} />
       <PrivateRoute path={MainRouteNames.Meetings} component={MeetingPage} />
+      <PrivateRoute path={MainRouteNames.MeetingsCreate} component={MeetingCreatePage} />
+      <PrivateRoute path={MainRouteNames.MeetingsView} component={MeetingViewPage} />
     </IonRouterOutlet>
   )
 }
